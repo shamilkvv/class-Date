@@ -92,6 +92,27 @@ public:
     {
         return day;
     }
+
+    // перегрузка операторов +, - и +=
+
+    Date operator+(int d) const
+    {
+        int chDay = day + d;
+        return Date(chDay, month, year);
+    }
+
+    Date operator-(int d) const
+    {
+        int chDay = day - d;
+        return Date(chDay, month, year);
+    }
+
+    Date& operator+=(int d)
+    {
+        day += d;
+        Normalize();
+        return *this;
+    }
 };
 
 int main()
