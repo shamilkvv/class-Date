@@ -115,6 +115,31 @@ public:
     }
 };
 
+// перегрузка операторов << и >> для Date
+
+std::ostream & operator<<(std::ostream & out, const Date & d)
+{
+    out << d.GetDay() << " . " << d.GetMonth() << " . " << d.GetYear();
+    return out;
+}
+
+std::istream& operator >> (std::istream& in, Date& date)
+{
+    std::cin.exceptions(std::istream::failbit);
+
+    int y, m, d;
+    char c;
+
+    in >> d >> c;
+    in >> m >> c;
+    in >> y;
+
+    date = Date(d, m, y);
+
+    return in;
+
+}
+
 int main()
 {
     
