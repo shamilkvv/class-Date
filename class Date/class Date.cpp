@@ -1,5 +1,20 @@
 ﻿#include <iostream>
 
+struct WrongDayException
+{
+    int day;
+};
+
+struct WrongMonthException
+{
+    int month;
+};
+
+struct WrongYearException
+{
+    int year;
+};
+
 class Date
 {
 private:
@@ -70,12 +85,31 @@ public:
 
     Date(int day, int month, int year) : day(day), month(month), year(year)
     {
-        Normalize();
+        if (year < 0)
+        {
+            throw WrongYearException{ year };
+        }
+
+        int daysInMonth = DaysInMonth(year, month);
+
+        if (day > daysInMonth || day <= 0)
+        {
+            throw WrongDayException{ day };
+        }
+
+        if (month > 12 || month <= 0)
+        {
+            throw WrongMonthException{ month };
+        }
+       // Normalize();
     }
 
-    Date(int day) : day(day), month(0), year(1)
+    Date(int day) : day(day), month(1), year(0)
     {
-        Normalize();
+        if (day <= 0) {
+            throw WrongDayException{ day };
+        }
+       // Normalize();
     }
 
     int GetYear() const
